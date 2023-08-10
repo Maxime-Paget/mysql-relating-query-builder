@@ -1,8 +1,12 @@
 {
-  "name": "@pm/relating-query-builder",
-  "version": "0.1.0",
+  "name": "@mpaget/relating-query-builder",
+  "version": "0.1.2",
   "description": "",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +22,9 @@
   "homepage": "https://github.com/Maxime-Paget/mysql-relating-query-builder#readme",
   "devDependencies": {
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@mpaget/relating-query-builder": "^0.1.11",
+    "mysql2": "^3.6.0"
   }
 }
