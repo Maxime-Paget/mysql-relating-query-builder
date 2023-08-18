@@ -1,1 +1,1 @@
-export { sqlConnect } from './Connect';
+export { ArkConnect } from "./Connect";

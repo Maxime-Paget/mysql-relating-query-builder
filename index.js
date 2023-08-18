@@ -1,12 +1,16 @@
-const { sqlConnect } = require('./lib/Connect')
+const { ArkConnect } = require("./lib")
 
-const queryBuilder = sqlConnect({
-    databaseName: 'test',
-    support: "mysql"
+const queryBuilder = ArkConnect.mysql.connect({
+    database: 'miamogames',
+    host: 'localhost',
+    user: 'root',
+    password: 'SupErV1e'
 })
 
-queryBuilder.select('test1', 'test2').from('toto', 't').innerJoin({
-    name: 'titi',
-    alias: 'ti',
-    joinClause: 'ti.test = t.test'
-}).execute()
+
+console.log(3, 
+    queryBuilder
+    .select('t.id', 't.fr')
+    .from('pictionnary_dictionary', 't')
+    .execute()
+)

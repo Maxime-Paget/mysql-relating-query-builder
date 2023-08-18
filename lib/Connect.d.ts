@@ -1,28 +1,28 @@
-import { Pool } from 'mysql2';
-declare enum dbSupport {
-    mysql = 0
-}
-type RelatingQueryBuilderOptions = {
-    host: string;
-    databaseName: string;
-    port: Int16Array | 3006;
-    support: dbSupport | "mysql";
-};
+import mysql from 'mysql2';
 type Table = {
     name: String;
     alias: String;
     joinClause?: String;
 };
-declare class QueryBuilder {
-    private selectedColumns;
-    private tables;
-    private query;
-    private connectionPool;
-    constructor(connectionPool: Pool);
+declare abstract class QueryBuilder {
+    protected selectedColumns: Array<String>;
+    protected tables: Array<Table>;
+    protected query: String;
+    protected pool: any;
+    protected constructor(connectionPool: any);
     select(...columns: String[]): this;
     from(table: String, alias: ''): this;
     innerJoin(table: Table): this;
-    execute(): void;
+    abstract execute(): any;
 }
-export declare function sqlConnect(opts: RelatingQueryBuilderOptions): QueryBuilder;
+declare class MySqlQueryBuilder extends QueryBuilder {
+    constructor(connectionPool: mysql.Pool);
+    static connect(opts: mysql.PoolOptions): MySqlQueryBuilder;
+    execute(): any;
+}
+export declare const ArkConnect: {
+    mysql: {
+        connect: typeof MySqlQueryBuilder.connect;
+    };
+};
 export {};

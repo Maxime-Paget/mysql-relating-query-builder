@@ -1,16 +1,4 @@
-import mysql, { Pool } from 'mysql2';
-
-
-enum dbSupport {
-    mysql
-}
-
-type RelatingQueryBuilderOptions = {
-    host: string,
-    databaseName: string,
-    port: Int16Array | 3006
-    support: dbSupport | "mysql"
-}
+import mysql from 'mysql2';
 
 type Table = {
     name: String,
@@ -18,18 +6,18 @@ type Table = {
     joinClause?: String
 }
 
-class QueryBuilder {
+abstract class QueryBuilder {
 
-    private selectedColumns: Array<String>;
-    private tables: Array<Table>;
-    private query: String;
-    private connectionPool;
+    protected selectedColumns: Array<String>;
+    protected tables: Array<Table>;
+    protected query: String;
+    protected pool;
 
-    constructor (connectionPool: Pool) {
+    protected constructor (connectionPool: any) {
         this.selectedColumns = [];
         this.tables = [];
         this.query = '';
-        this.connectionPool = connectionPool;
+        this.pool = connectionPool;
     }
 
     public select (...columns: String[]) {
@@ -50,17 +38,34 @@ class QueryBuilder {
         return this;
     }
 
-    public execute() {
-        console.log(this.query);
+    public abstract execute() : any;
+}
+
+class MySqlQueryBuilder extends QueryBuilder {
+    constructor (connectionPool: mysql.Pool) {
+        super(connectionPool);
+    }
+
+    static connect (opts: mysql.PoolOptions): MySqlQueryBuilder {
+        return new MySqlQueryBuilder(mysql.createPool(opts))
+    }
+
+    public execute(): any {
+        let result: any
+        this.pool.query(this.query, function (err: Error | undefined, rows: any) {
+            if (err) {
+                throw err;
+            }
+            result = rows;
+            console.log(1, result);
+        })
+        return result
     }
 }
 
-export function sqlConnect (opts: RelatingQueryBuilderOptions) {
-    if (dbSupport[opts.support] === undefined || dbSupport[opts.support] === null) {
-        throw new Error(`Support must be one of allowed SGDB`)
+
+export const ArkConnect = {
+    mysql: {
+        connect: MySqlQueryBuilder.connect
     }
-    return new QueryBuilder(mysql.createPool({
-        database: opts.databaseName,
-        port: Number(opts.port)
-    }));
 }
