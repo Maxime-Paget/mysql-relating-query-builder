@@ -1,6 +1,6 @@
 {
   "name": "@mpaget/relating-query-builder",
-  "version": "0.1.32",
+  "version": "0.1.33",
   "description": "",
   "main": "bin/index.js",
   "types": "./lib/index.d.ts",
