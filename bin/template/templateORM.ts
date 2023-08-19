@@ -1,9 +1,11 @@
-class ENTITY_NAME_REPLACE {
-    static dataModel () {
-        return 'dataModelExample'
-    }
+class ENTITY_NAME {
+    private fakeProperty?: string
 
-    dataModel () {
-        return ENTITY_NAME_REPLACE.dataModel()
+    get fakeproperty () : string | undefined {
+        return this.fakeProperty;
+    }
+    
+    set fakeproperty (property: string) {
+        this.fakeProperty = property
     }
 }
