@@ -1,6 +1,6 @@
 {
   "name": "@mpaget/relating-query-builder",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "description": "",
   "main": "bin/index.js",
   "types": "./lib/index.d.ts",
@@ -9,7 +9,7 @@
     "bin/**/*"
   ],
   "bin": {
-    "arc": "./bin/index.ts"
+    "arc": "./bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
