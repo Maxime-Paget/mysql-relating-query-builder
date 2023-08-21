@@ -1,11 +1,12 @@
 {
   "name": "@mpaget/relating-query-builder",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "description": "",
   "main": "bin/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "bin/**/*"
   ],
   "bin": {
     "arc": "./bin/index.ts"
