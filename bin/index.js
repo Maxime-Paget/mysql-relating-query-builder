@@ -59,7 +59,7 @@ async function createFile(filePath, data) {
 
     }
 
-    const templateBuffer = await fs.promises.readFile(path.join(process.cwd(), '/bin/template/templateORM.ts'))
+    const templateBuffer = await fs.promises.readFile(path.join(__dirname, '/template/templateORM.ts'))
     const template = templateBuffer.toString();
 
     let newFileData = template.replace('ENTITY_NAME', title);
